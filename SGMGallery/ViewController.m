@@ -35,8 +35,8 @@
     [self.view addSubview:mTable];
     
     locakImgArray = [[NSMutableArray alloc]init];
-    for (int i=0; i<=21; i++) {
-        [locakImgArray addObject:[NSString stringWithFormat:@"test%d.jpeg",i]];
+    for (int i=0; i<=3; i++) {
+        [locakImgArray addObject:[NSString stringWithFormat:@"test1%d.jpeg",i]];
     }
     
     networkImgArray = [[NSMutableArray alloc]init];
@@ -68,10 +68,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     if (indexPath.row == 0) {
-        SGMPhotoViewController* viewVC = [[SGMPhotoViewController alloc]initWithPhotoArray:locakImgArray withPhotoType:IsLocalType startAtIndex:1];
+        SGMPhotoViewController* viewVC = [[SGMPhotoViewController alloc]initWithPhotoArray:locakImgArray withPhotoType:IsLocalType startAtIndex:2];
         [self.navigationController pushViewController:viewVC animated:YES];
     }else{
-        SGMPhotoViewController* viewVC = [[SGMPhotoViewController alloc]initWithPhotoArray:networkImgArray withPhotoType:IsNetworkType startAtIndex:0];
+        SGMPhotoViewController* viewVC = [[SGMPhotoViewController alloc]initWithPhotoArray:networkImgArray withPhotoType:IsNetworkType startAtIndex:1];
         [self.navigationController pushViewController:viewVC animated:YES];
     }
 }

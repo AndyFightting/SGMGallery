@@ -26,7 +26,6 @@
     NSMutableArray* photoStringArray;//如果photoType = IsLocalType,  string = imgName. 否则 string = imgURL
     NSMutableArray* photoViewArray;
     NSMutableArray* photoArray;
-
 }
 
 -(instancetype)initWithPhotoArray:(NSArray*)array withPhotoType:(PhotoType)type startAtIndex:(int)startIndex{
@@ -81,7 +80,11 @@
         [mainScroll addSubview:tmpView];
     }
     [mainScroll setContentOffset:CGPointMake(scrollWidth, 0)];
+    if (totalCount == 1) {
+        mainScroll.scrollEnabled = NO;
+    }
     
+    //初始化3个图片
     [self resetContainerView:1 withPhotoView:currentIndex];
     if (currentIndex-1>=0) {
         [self resetContainerView:0 withPhotoView:currentIndex-1];
@@ -128,34 +131,54 @@
     
     SGMPhotoView* photoView = [photoViewArray objectAtIndex:index];
     SGMPhoto* photo = [photoArray objectAtIndex:index];
-    photoView.imageView.image =photo.photoImg;
     [photoView.indicatorView stopAnimating];
-    
-    NSLog(@"加载完成");
+    photoView.imageView.image =photo.photoImg;
     
 }
 
 #pragma mark - scroll delegate
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if (scrollView == mainScroll) {
+        
         float offsetX = scrollView.contentOffset.x;
         long toIndex = offsetX / scrollWidth;
         
-        if (toIndex > 1) {//往左边滑动结束
-            [self moveLeft];
+        if (toIndex > 1) {//手指往左边滑动结束
+            [self slipLeftFinished];
         }
-        if (toIndex < 1) {//往右边滑动结束
-            [self moveRight];
+        if (toIndex < 1) {//手指往右边滑动结束
+            [self slipRightFinished];
         }
     }
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (scrollView == mainScroll) {
+        if (currentIndex == 0) {
+            if (scrollView.contentOffset.x<scrollWidth) {
+                mainScroll.scrollEnabled = NO;
+                [mainScroll setContentOffset:CGPointMake(scrollWidth, 0)];
+            }else{
+                mainScroll.scrollEnabled = YES;
+            }
+        }else if(currentIndex == totalCount-1){
+            if (scrollView.contentOffset.x>scrollWidth) {
+                mainScroll.scrollEnabled = NO;
+                [mainScroll setContentOffset:CGPointMake(scrollWidth, 0)];
+            }else{
+                mainScroll.scrollEnabled = YES;
+            }
+        }
+    }
+}
+-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+    mainScroll.scrollEnabled = YES;
+}
 
-
--(void)moveLeft{
-    currentIndex += 1;
+-(void)slipLeftFinished{
+    currentIndex =currentIndex+ 1;
     
-    for (UIView* tmpView in containerViewArray) {//再全部左移
+    for (UIView* tmpView in containerViewArray) {//三个containverView全部左移
             CGRect frame = tmpView.frame;
             frame.origin.x -= scrollWidth;
             [tmpView setFrame:frame];
@@ -169,20 +192,24 @@
     [containerViewArray exchangeObjectAtIndex:2 withObjectAtIndex:1];
     
     self.title = [NSString stringWithFormat:@"%d%@%d",currentIndex+1,@"/",totalCount];
+    [self resetContainerView:2 withPhotoView:currentIndex+1];//放置右边图片
     
-    [self resetContainerView:2 withPhotoView:currentIndex+1];
+    //---重置左边的图片尺寸
+    SGMPhotoView* leftPhotoView = [photoViewArray objectAtIndex:currentIndex-1];
+    [leftPhotoView restZoom];
+    
+    
 }
 
--(void)moveRight{
-    currentIndex -= 1;
+-(void)slipRightFinished{
+    currentIndex =currentIndex- 1;
     
-    for (UIView* tmpView in containerViewArray) {//再全部右移
+    for (UIView* tmpView in containerViewArray) {//三个containverView全部右移
         CGRect frame = tmpView.frame;
         frame.origin.x += scrollWidth;
         [tmpView setFrame:frame];
     }
     [mainScroll setContentOffset:CGPointMake(scrollWidth, 0)];//居中
-    
     
     UIView* view2 = [containerViewArray objectAtIndex:2];
     [view2 setFrame:CGRectMake(scrollWidth*0, 0, scrollWidth, scrollHeight)];
@@ -191,8 +218,11 @@
     [containerViewArray exchangeObjectAtIndex:1 withObjectAtIndex:2];
     
     self.title = [NSString stringWithFormat:@"%d%@%d",currentIndex+1,@"/",totalCount];
+    [self resetContainerView:0 withPhotoView:currentIndex-1];//放置左边图片
     
-    [self resetContainerView:0 withPhotoView:currentIndex-1];
+    //---重置右边的图片尺寸
+    SGMPhotoView* rightPhotoView = [photoViewArray objectAtIndex:currentIndex+1];
+    [rightPhotoView restZoom];
 }
 -(void)dealloc{
     

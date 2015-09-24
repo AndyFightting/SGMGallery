@@ -30,13 +30,13 @@
     self.showsHorizontalScrollIndicator = NO;
     self.showsVerticalScrollIndicator = NO;
     
-    imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self addSubview:imageView];
-    
     indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     indicatorView.center = self.center;
     [self addSubview:indicatorView];
+    
+    imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self addSubview:imageView];
     
     return self;
 }

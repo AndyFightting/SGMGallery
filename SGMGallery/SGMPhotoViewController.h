@@ -12,7 +12,7 @@
 
 @interface SGMPhotoViewController : UIViewController<UIScrollViewDelegate,SingleTapDelegate,SGMPhotoDelegate>
 
-// startIndex 是从0开始算的 ！！
+// startIndex 是从0开始算的 ！！如显示第二张图片传 startIndex = 1;
 -(instancetype)initWithPhotoArray:(NSArray*)array withPhotoType:(PhotoType)type startAtIndex:(int)startIndex;
 
 @end
