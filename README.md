@@ -8,4 +8,4 @@
  SGMPhotoViewController* viewVC = [[SGMPhotoViewController alloc]initWithPhotoArray:locakImgArray withPhotoType:IsLocalType startAtIndex:2];
  [self.navigationController pushViewController:viewVC animated:YES];
  ```
- ![图片](https://github.com/AndyFightting/SGMGallery/blob/master/example.gif)
+ ![图片](https://github.com/AndyFightting/SGMGallery/blob/master/sample.gif)
