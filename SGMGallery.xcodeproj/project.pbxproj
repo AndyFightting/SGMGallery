@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7677B3481BB3CE1F004BD0E5 /* test10.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7677B3321BB3CE1F004BD0E5 /* test10.jpeg */; };
 		7677B3491BB3CE1F004BD0E5 /* test11.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7677B3331BB3CE1F004BD0E5 /* test11.jpeg */; };
 		7677B34A1BB3CE1F004BD0E5 /* test12.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7677B3341BB3CE1F004BD0E5 /* test12.jpeg */; };
 		7677B34B1BB3CE1F004BD0E5 /* test13.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7677B3351BB3CE1F004BD0E5 /* test13.jpeg */; };
+		76AE2BA51BB4E3B7009AFFE5 /* test10.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 76AE2BA41BB4E3B7009AFFE5 /* test10.jpeg */; };
 		76C37BD51BB245850049252B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C37BD41BB245850049252B /* main.m */; };
 		76C37BD81BB245850049252B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C37BD71BB245850049252B /* AppDelegate.m */; };
 		76C37BDB1BB245850049252B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C37BDA1BB245850049252B /* ViewController.m */; };
@@ -33,10 +33,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7677B3321BB3CE1F004BD0E5 /* test10.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test10.jpeg; sourceTree = "<group>"; };
 		7677B3331BB3CE1F004BD0E5 /* test11.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test11.jpeg; sourceTree = "<group>"; };
 		7677B3341BB3CE1F004BD0E5 /* test12.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test12.jpeg; sourceTree = "<group>"; };
 		7677B3351BB3CE1F004BD0E5 /* test13.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test13.jpeg; sourceTree = "<group>"; };
+		76AE2BA41BB4E3B7009AFFE5 /* test10.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test10.jpeg; sourceTree = "<group>"; };
 		76C37BCF1BB245850049252B /* SGMGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SGMGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76C37BD31BB245850049252B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		76C37BD41BB245850049252B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 		7677B3271BB3CE11004BD0E5 /* testImgs */ = {
 			isa = PBXGroup;
 			children = (
-				7677B3321BB3CE1F004BD0E5 /* test10.jpeg */,
+				76AE2BA41BB4E3B7009AFFE5 /* test10.jpeg */,
 				7677B3331BB3CE1F004BD0E5 /* test11.jpeg */,
 				7677B3341BB3CE1F004BD0E5 /* test12.jpeg */,
 				7677B3351BB3CE1F004BD0E5 /* test13.jpeg */,
@@ -243,8 +243,8 @@
 				7677B34B1BB3CE1F004BD0E5 /* test13.jpeg in Resources */,
 				7677B3491BB3CE1F004BD0E5 /* test11.jpeg in Resources */,
 				7677B34A1BB3CE1F004BD0E5 /* test12.jpeg in Resources */,
+				76AE2BA51BB4E3B7009AFFE5 /* test10.jpeg in Resources */,
 				76C37BE01BB245850049252B /* Images.xcassets in Resources */,
-				7677B3481BB3CE1F004BD0E5 /* test10.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

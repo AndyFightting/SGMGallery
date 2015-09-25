@@ -21,6 +21,5 @@
 @end
 
 @protocol SingleTapDelegate <NSObject>
-@optional
 -(void)photoSingleTaped;
 @end

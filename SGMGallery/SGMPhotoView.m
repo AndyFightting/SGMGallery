@@ -10,6 +10,7 @@
 
 @implementation SGMPhotoView{
     BOOL isZoomed;
+    BOOL isDoubleTap;
 }
 
 @synthesize imageView,indicatorView,singleTapDelegate;
@@ -57,6 +58,8 @@
     
     //双击处理 --- 放大
     if (touch.tapCount == 2) {
+        isDoubleTap = YES;
+        
         if(isZoomed )
         {
             isZoomed = NO;
@@ -91,6 +94,31 @@
     }
 }
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if([[event allTouches] count] == 1 ) {
+        UITouch *touch = [[event allTouches] anyObject];
+        if( touch.tapCount == 1 ) {
+            [self performSelector:@selector(singleTaped) withObject:nil afterDelay:0.3];
+        }else{
+            [self performSelector:@selector(resetDoubleTap) withObject:nil afterDelay:0.6];
+        }
+    }
+}
+
+-(void)resetDoubleTap{
+    isDoubleTap = NO;
+}
+
+-(void)singleTaped{
+    if (isDoubleTap) {
+        return;
+    }
+    if ([singleTapDelegate respondsToSelector:@selector(photoSingleTaped)]) {
+        [singleTapDelegate photoSingleTaped];
+    }
+}
+
 #pragma mark - scroll delegate--------
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
@@ -114,6 +142,4 @@
     indicatorView = nil;
 
 }
-
-
 @end

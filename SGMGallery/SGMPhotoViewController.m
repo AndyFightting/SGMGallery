@@ -9,6 +9,8 @@
 #import "SGMPhotoViewController.h"
 #define scrollWidth [UIScreen mainScreen].bounds.size.width
 #define scrollHeight [UIScreen mainScreen].bounds.size.height
+#define bottomViewHeight 45
+
 
 @interface SGMPhotoViewController ()
 
@@ -26,6 +28,9 @@
     NSMutableArray* photoStringArray;//如果photoType = IsLocalType,  string = imgName. 否则 string = imgURL
     NSMutableArray* photoViewArray;
     NSMutableArray* photoArray;
+    
+    BOOL isFullScreen;//是不是全屏，即隐藏导航栏和底部栏
+    UIView* bottomView;
 }
 
 -(instancetype)initWithPhotoArray:(NSArray*)array withPhotoType:(PhotoType)type startAtIndex:(int)startIndex{
@@ -91,6 +96,18 @@
     }if (currentIndex+1<totalCount) {
         [self resetContainerView:2 withPhotoView:currentIndex+1];
     }
+    
+    //---bottomView
+    bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, scrollHeight-bottomViewHeight, scrollWidth, bottomViewHeight)];
+    bottomView.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.5];
+    [self.view addSubview:bottomView];
+    
+    UILabel* tmpLabel = [[UILabel alloc]initWithFrame:bottomView.bounds];
+    tmpLabel.text = @"   要在这放东西吗？";
+    tmpLabel.textColor = [UIColor whiteColor];
+    [bottomView addSubview:tmpLabel];
+    
+    
 }
 
 -(void)resetContainerView:(int)viewIndex withPhotoView:(int)photoIndex{
@@ -111,12 +128,13 @@
         photo = [photoArray objectAtIndex:photoIndex];
     }else{
         photoView = [[SGMPhotoView alloc]initWithFrame:containerView.bounds];
+        photoView.singleTapDelegate = self;//图片单击代理
         photo = [[SGMPhoto alloc]initWithPhotoString:[photoStringArray objectAtIndex:photoIndex] withPhotoType:photoType atIndex:photoIndex andDelegate:self];
         
         [photoViewArray replaceObjectAtIndex:photoIndex withObject:photoView];
         [photoArray replaceObjectAtIndex:photoIndex withObject:photo];
     }
-    [photo loadPhoto];//启动加载图片 -- 加载开始和结束 有代理方法
+    [photo loadPhoto];//启动加载图片，每个photoView只会第一次加载 -- 加载开始和结束 有代理方法
     [containerView addSubview:photoView];
     
 }
@@ -135,7 +153,29 @@
     photoView.imageView.image =photo.photoImg;
     
 }
-
+#pragma mark - 图片单击代理
+-(void)photoSingleTaped{
+    if (isFullScreen) {
+        [self exitFullscreen];
+    }else{
+        [self enterFullscreen];
+    }
+    isFullScreen = !isFullScreen;
+}
+-(void)enterFullscreen{
+   [self.navigationController setNavigationBarHidden:YES animated:YES];
+   
+    [UIView animateWithDuration:0.2 animations:^{
+        bottomView.frame = CGRectMake(0, scrollHeight, scrollWidth, bottomViewHeight);
+    }];
+    
+}
+-(void)exitFullscreen{
+   [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [UIView animateWithDuration:0.2 animations:^{
+        bottomView.frame = CGRectMake(0, scrollHeight-bottomViewHeight, scrollWidth, bottomViewHeight);
+    }];
+}
 #pragma mark - scroll delegate
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if (scrollView == mainScroll) {

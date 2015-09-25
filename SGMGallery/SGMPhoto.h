@@ -22,12 +22,11 @@ typedef NS_ENUM(NSInteger, PhotoType) {
 @property (nonatomic,assign)id<SGMPhotoDelegate> photoDelegate;
 @property BOOL imgLoaded;
 
--(instancetype)initWithPhotoString:(NSString*)string withPhotoType:(PhotoType)type atIndex:(int)index andDelegate:(id<SGMPhotoDelegate>)delegate ;
+-(instancetype)initWithPhotoString:(NSString*)string withPhotoType:(PhotoType)type atIndex:(int)index andDelegate:(id<SGMPhotoDelegate>)delegate;
 -(void)loadPhoto;
 @end
 
 @protocol SGMPhotoDelegate <NSObject>
-@required
 -(void)sgmPhotoWillBeginLoadAtIndex:(int)index;
 -(void)sgmPhotoDidEndLoadAtIndex:(int)index;
 @end

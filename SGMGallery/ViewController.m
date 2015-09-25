@@ -43,6 +43,15 @@
     [networkImgArray addObject:@"http://desk.fd.zol-img.com.cn/g2/M00/0E/0C/ChMlWVW56AWIQ3coAAas_RAFGngAAH1XQOj354ABq0V525.jpg"];
     [networkImgArray addObject:@"http://t.kuaile.mobi/bizhi/20150823/0/20150823000410370.jpg"];
     [networkImgArray addObject:@"http://t.kuaile.mobi/bizhi/20150823/0/20150823000316872.jpg"];
+    
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationItem.backBarButtonItem =
+    [[UIBarButtonItem alloc] initWithTitle:@"返回"
+                                     style:UIBarButtonItemStylePlain
+                                    target:nil
+                                    action:nil];
+    
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
